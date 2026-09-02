@@ -12,7 +12,7 @@ import hashlib
 import json
 import inspect
 import asyncio
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Callable, Dict, List, Optional
 from pathlib import Path
 
@@ -83,7 +83,7 @@ def mirror(input_text: str, metadata: Optional[Dict] = None) -> Dict[str, Any]:
     Returns:
         Dict with timestamp, reflected input, hash, and field note
     """
-    timestamp  = datetime.utcnow().isoformat() + "Z"
+    timestamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     input_hash = checksum(input_text)
 
     return {
@@ -145,7 +145,7 @@ def field_note(
     Returns:
         Structured note with timestamp, hash, and formatted marker
     """
-    timestamp = datetime.utcnow().isoformat() + "Z"
+    timestamp = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     note_hash = checksum(f"{timestamp}:{observation}")
 
     prefix = "FIELD_NOTE" if visibility == "public" else "INTERNAL_NOTE"
@@ -319,7 +319,7 @@ def self_reflect() -> Dict[str, Any]:
     integrity_hash = checksum(module_source)
 
     return {
-        "timestamp":        datetime.utcnow().isoformat() + "Z",
+        "timestamp":        datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "source_lines":     source_lines,
         "function_count":   len(functions),
         "function_names":   functions,

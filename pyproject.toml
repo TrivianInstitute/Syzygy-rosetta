@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "syzygy-rosetta"
+version = "1.1.0"
+description = "Relational governance primitives for human-AI systems."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "AGPL-3.0-only"}
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[tool.setuptools.packages.find]
+include = ["core*", "adapters*", "evaluation*"]
+
+[tool.setuptools.package-data]
+core = ["invariants.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
