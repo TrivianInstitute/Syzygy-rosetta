@@ -177,6 +177,13 @@ syzygy-rosetta/
 
 ## 🚀 Quick Start
 
+Install the package and run its verification suite:
+
+```bash
+python -m pip install -e '.[dev]'
+python -m pytest -q
+```
+
 ```python
 from core.reflex import breath_loop, mirror, field_note
 
