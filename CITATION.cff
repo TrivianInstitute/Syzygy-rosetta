@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: >-
+  If you use this work in research, teaching, evaluation, training, or a
+  derivative work, please cite Sarasha Elion and Trivian Institute using the
+  metadata in this file.
+title: "Syzygy Rosetta"
+type: software
+version: "1.1.0"
+authors:
+  - family-names: Elion
+    given-names: Sarasha
+    affiliation: Trivian Institute
+    orcid: "https://orcid.org/0009-0005-5819-7082"
+repository-code: "https://github.com/TrivianInstitute/Syzygy-rosetta"
+url: "https://trivianinstitute.org"
+keywords:
+  - relational AI
+  - AI governance
+  - human-AI systems
