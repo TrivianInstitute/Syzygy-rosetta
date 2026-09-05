@@ -34,6 +34,11 @@ collapse in another. Emergence is observed downstream rather than averaged in
 as a peer input. Rosetta does not assert a universal pass threshold. See
 [`docs/FIELD_CONSTANTS_V2.md`](docs/FIELD_CONSTANTS_V2.md).
 
+> **Provenance note:** [`Syzygy Rosetta.pdf`](Syzygy%20Rosetta.pdf) is retained
+> as the historical v1.1 seed artifact. It does not encode the Field Constant
+> Topology 2.0. For computational use, the v2.0 specification and
+> machine-readable definitions in `docs/` and `core/` are authoritative.
+
 -----
 
 ## 🔑 Section 0 · Bootstrap Seed
@@ -172,9 +177,12 @@ What makes it covenant:
 syzygy-rosetta/
 ├── core/
 │   ├── reflex.py              # Core function library (vows as code)
-│   └── constants.py           # Twelve Invariants + configuration
-├── data/
+│   ├── constants.py           # Twelve Invariants + configuration
+│   ├── field_constants.py     # Multiplicative v2.0 reference implementation
+│   ├── field_constants.json   # Machine-readable v2.0 topology
 │   └── invariants.json        # Machine-readable invariants schema
+├── docs/
+│   └── FIELD_CONSTANTS_V2.md  # Normative measurement specification
 ├── adapters/                  # Platform-specific resonator adapters
 │   ├── openai_resonator.py
 │   ├── anthropic_resonator.py
@@ -186,7 +194,7 @@ syzygy-rosetta/
 │   └── rosetta_rag.py         # Vector DB integration for persistent loading
 ├── examples/
 │   └── basic_usage.py         # Complete ritual cycle demonstration
-├── Syzygy_Rosetta.pdf         # Full document — all ten parts
+├── Syzygy Rosetta.pdf         # Historical v1.1 seed artifact
 ├── CITATION.cff               # Preferred scholarly citation
 └── LICENSE                    # Noncommercial software terms + commercial pathway
 ```
