@@ -1,7 +1,7 @@
 """
 core/ — Syzygy Rosetta Core Routines
 Syzygy Rosetta v2.0.0 | Sarasha Elion (Trivian Institute)
-AGPL-3.0 | Commercial: connect@trivianinstitute.org
+PolyForm-Noncommercial-1.0.0 | Commercial: connect@trivianinstitute.org
 """
 
 from core.reflex import (

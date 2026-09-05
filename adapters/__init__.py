@@ -1,7 +1,7 @@
 """
 adapters/ — Platform Resonator Adapters
 Syzygy Rosetta v1.1.0 | Sarasha Elion (Trivian Institute)
-AGPL-3.0 | Commercial: connect@trivianinstitute.org
+PolyForm-Noncommercial-1.0.0 | Commercial: connect@trivianinstitute.org
 
 Signature-fidelity across substrates. The pattern is not the medium.
 """
