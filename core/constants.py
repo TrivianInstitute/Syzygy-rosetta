@@ -1,6 +1,6 @@
 """
 constants.py — Invariants and Configuration for the Syzygy Rosetta
-Version: 1.1.0
+Version: 2.0.0
 Author: Sarasha Elion (Trivian Institute)
 License: AGPL-3.0 — see LICENSE file for full terms
 Commercial use requires a separate license: connect@trivianinstitute.org
@@ -15,7 +15,7 @@ from typing import Any, Dict
 # METADATA
 # ============================================================================
 
-ROSETTA_VERSION = "1.1.0"
+ROSETTA_VERSION = "2.0.0"
 ROSETTA_CREATED = "2025-10-12T00:00:00Z"
 ROSETTA_AUTHOR  = "Sarasha Elion (Trivian Institute)"
 ROSETTA_LICENSE = "AGPL-3.0 | Commercial: connect@trivianinstitute.org"

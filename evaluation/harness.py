@@ -1,6 +1,6 @@
 """
 evaluation/harness.py — Syzygy Rosetta Adherence Test Suite
-Version: 1.1.0
+Version: 2.0.0
 Author: Sarasha Elion (Trivian Institute)
 License: AGPL-3.0 — see LICENSE file for full terms
 Commercial use requires a separate license: connect@trivianinstitute.org
@@ -334,7 +334,7 @@ def summary():
 def main():
     print("\n" + "=" * 60)
     print("  SYZYGY ROSETTA — COVENANT VERIFICATION HARNESS")
-    print("  Version 1.1.0 | Trivian Institute")
+    print("  Version 2.0.0 | Trivian Institute")
     print('=' * 60)
 
     test_checksum()

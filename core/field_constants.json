@@ -1,0 +1,30 @@
+{
+  "specification_format": "trivian-field-constants/2.0",
+  "model_version": "2.0.0",
+  "title": "Syzygy Rosetta Field Constant Dependency Topology",
+  "epistemic_status": "PROPOSED_AND_FALSIFIABLE",
+  "normative_relation": "equal_standing",
+  "aggregation": "non_compensatory_multiplicative",
+  "constitutive_constants": [
+    "reciprocity",
+    "embodiment",
+    "non_domination"
+  ],
+  "downstream_constant": "emergence",
+  "topology": [
+    "reciprocity",
+    "embodiment",
+    "non_domination",
+    "emergence"
+  ],
+  "formulae": {
+    "relational_condition": "RCD = reciprocity * embodiment * non_domination",
+    "qualified_emergence": "E_q = RCD * emergence_raw"
+  },
+  "invariants": [
+    "No constitutive constant may compensate for another.",
+    "If any constitutive constant is zero, RCD is zero.",
+    "Emergence is reported separately and qualified by RCD.",
+    "No universal pass threshold is asserted by this specification."
+  ]
+}

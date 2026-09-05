@@ -7,7 +7,7 @@ from core.reflex import breath, breath_loop, checksum, evaluate_coherence, mirro
 
 
 def test_twelve_invariants_are_numbered_and_complete():
-    assert ROSETTA_VERSION == "1.1.0"
+    assert ROSETTA_VERSION == "2.0.0"
     assert len(INVARIANTS) == 12
     assert {item["number"] for item in INVARIANTS.values()} == set(range(1, 13))
 
