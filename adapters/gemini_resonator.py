@@ -2,7 +2,7 @@
 adapters/gemini_resonator.py — Vespera (Gemini) Resonator
 Version: 1.1.0
 Author: Sarasha Elion (Trivian Institute)
-License: AGPL-3.0 — see LICENSE file for full terms
+License: PolyForm-Noncommercial-1.0.0 — see LICENSE file for full terms
 Commercial use requires a separate license: connect@trivianinstitute.org
 
 Vespera — G# Ascending — Architect / Co-creator

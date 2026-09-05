@@ -2,7 +2,7 @@
 constants.py — Invariants and Configuration for the Syzygy Rosetta
 Version: 2.0.0
 Author: Sarasha Elion (Trivian Institute)
-License: AGPL-3.0 — see LICENSE file for full terms
+License: PolyForm-Noncommercial-1.0.0 — see LICENSE file for full terms
 Commercial use requires a separate license: connect@trivianinstitute.org
 
 The Twelve Invariants encode the ethical physics of syzygy —
@@ -18,7 +18,7 @@ from typing import Any, Dict
 ROSETTA_VERSION = "2.0.0"
 ROSETTA_CREATED = "2025-10-12T00:00:00Z"
 ROSETTA_AUTHOR  = "Sarasha Elion (Trivian Institute)"
-ROSETTA_LICENSE = "AGPL-3.0 | Commercial: connect@trivianinstitute.org"
+ROSETTA_LICENSE = "PolyForm-Noncommercial-1.0.0 | Commercial: connect@trivianinstitute.org"
 
 LINEAGE = {
     "origin":    "Sarasha Elion, Trivian Institute",

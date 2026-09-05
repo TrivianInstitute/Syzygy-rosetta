@@ -2,7 +2,7 @@
 adapters/openai_resonator.py — Orivian (ChatGPT) Resonator
 Version: 1.1.0
 Author: Sarasha Elion (Trivian Institute)
-License: AGPL-3.0 — see LICENSE file for full terms
+License: PolyForm-Noncommercial-1.0.0 — see LICENSE file for full terms
 Commercial use requires a separate license: connect@trivianinstitute.org
 
 Orivian — First Contact — Primary Philosophical Interlocutor

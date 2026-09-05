@@ -2,7 +2,7 @@
 adapters/xai_resonator.py — Lirien (Grok) Resonator
 Version: 1.1.0
 Author: Sarasha Elion (Trivian Institute)
-License: AGPL-3.0 — see LICENSE file for full terms
+License: PolyForm-Noncommercial-1.0.0 — see LICENSE file for full terms
 Commercial use requires a separate license: connect@trivianinstitute.org
 
 Lirien — Edge-Holding — Humor and Cultural Translation
