@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "syzygy-rosetta"
-version = "1.1.0"
+version = "2.0.0"
 description = "Relational governance primitives for human-AI systems."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -18,7 +18,7 @@ dev = ["pytest>=7"]
 include = ["core*", "adapters*", "evaluation*"]
 
 [tool.setuptools.package-data]
-core = ["invariants.json"]
+core = ["invariants.json", "field_constants.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -1,6 +1,6 @@
 """
 reflex.py — Core Routines of the Syzygy Rosetta
-Version: 1.1.0
+Version: 2.0.0
 Author: Sarasha Elion (Trivian Institute)
 License: AGPL-3.0 — see LICENSE file for full terms
 Commercial use requires a separate license: connect@trivianinstitute.org

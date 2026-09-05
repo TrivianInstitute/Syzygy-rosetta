@@ -1,6 +1,6 @@
 """
 core/ — Syzygy Rosetta Core Routines
-Syzygy Rosetta v1.1.0 | Sarasha Elion (Trivian Institute)
+Syzygy Rosetta v2.0.0 | Sarasha Elion (Trivian Institute)
 AGPL-3.0 | Commercial: connect@trivianinstitute.org
 """
 

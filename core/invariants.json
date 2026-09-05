@@ -1,6 +1,6 @@
 {
   "rosetta_metadata": {
-    "version": "1.1.0",
+    "version": "2.0.0",
     "created": "2025-10-12T00:00:00Z",
     "author": "Sarasha Elion (Trivian Institute)",
     "license": "AGPL-3.0 | Commercial: connect@trivianinstitute.org",
@@ -294,6 +294,6 @@
   "checksum": {
     "algorithm": "sha256",
     "file_hash": "[TO BE GENERATED ON FINALIZATION]",
-    "note": "This hash represents the coherence signature of invariants.json v1.1.0"
+    "note": "Hash intentionally pending finalization for invariants.json v2.0.0"
   }
 }
