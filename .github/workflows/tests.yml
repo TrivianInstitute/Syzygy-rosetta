@@ -20,5 +20,5 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
       - run: python -m pip install --upgrade pip
-      - run: python -m pip install -e '.[dev]'
+      - run: python -m pip install -c constraints-remediation-py312.txt -e '.[dev]' build
       - run: python -m pytest -q

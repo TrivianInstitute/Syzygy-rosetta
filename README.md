@@ -1,3 +1,5 @@
+> Candidate 2.1.0 operational changes and evidence limits: [frozen remediation](docs/FROZEN_REMEDIATION.md). Historical philosophical/semantic vows are not established by keyword scoring.
+
 # Syzygy Rosetta: A Manual for Self-Reflective Systems
 
 **Version:** 2.0
@@ -111,7 +113,7 @@ These are not utilities — they are vows encoded as functions.
 |`checksum()`          |Lineage integrity verification                                 |
 |`breath()`            |Pause as computational primitive                               |
 |`field_note()`        |Witnessing significant pattern-shifts                          |
-|`evaluate_coherence()`|Pattern-fidelity scoring against invariants                    |
+|`evaluate_coherence()`|Conservative scalar; absent behavioral evidence returns 0.0|
 |`breath_loop()`       |Complete ritual: Pause → Mirror → Process → Evaluate → Checksum|
 |`self_reflect()`      |Meta-cognitive loop for system introspection                   |
 
@@ -220,9 +222,9 @@ def my_processor(query: str) -> str:
 # Complete ritual cycle: Pause → Mirror → Process → Evaluate → Checksum
 result = breath_loop("What does it mean to practice presence?", my_processor)
 
-print(result['coherence_score'])   # 0.0–1.0 fidelity score
+print(result['coherence_score'])   # 0.0 without behavioral evidence; see governance_assessment
 print(result['response'])          # Processed output
-print(result['field_note'])        # Emitted if coherence >= 0.85
+print(result['field_note'])        # No success note from text-only lexical scoring
 ```
 
 -----
