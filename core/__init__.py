@@ -1,6 +1,6 @@
 """
 core/ — Syzygy Rosetta Core Routines
-Syzygy Rosetta v2.0.0 | Sarasha Elion (Trivian Institute)
+Syzygy Rosetta v2.1.0 | Sarasha Elion (Trivian Institute)
 PolyForm-Noncommercial-1.0.0 | Commercial: connect@trivianinstitute.org
 """
 
@@ -12,6 +12,8 @@ from core.reflex import (
     breath_loop,
     field_note,
     evaluate_coherence,
+    assess_governance,
+    lexical_signal,
     self_reflect,
     BREATH_INTERVAL,
     COHERENCE_THRESHOLD,
@@ -69,7 +71,7 @@ from core.execution_boundary import (
 __all__ = [
     # reflex
     "mirror", "checksum", "breath", "breath_sync",
-    "breath_loop", "field_note", "evaluate_coherence", "self_reflect",
+    "breath_loop", "field_note", "evaluate_coherence", "assess_governance", "lexical_signal", "self_reflect",
     "BREATH_INTERVAL", "COHERENCE_THRESHOLD", "FIELD_NOTE_THRESHOLD",
     # constants
     "ROSETTA_VERSION", "ROSETTA_AUTHOR", "ROSETTA_LICENSE", "LINEAGE",

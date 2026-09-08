@@ -19,6 +19,16 @@ from dataclasses import dataclass, field, replace
 from datetime import datetime, timedelta, timezone
 from enum import Enum
 from typing import FrozenSet, Iterable, Mapping, Optional
+from types import MappingProxyType
+from threading import RLock
+from functools import wraps
+
+def _locked(method):
+    @wraps(method)
+    def call(self, *args, **kwargs):
+        with self._lock:
+            return method(self, *args, **kwargs)
+    return call
 
 
 class AuthorityStatus(str, Enum):
@@ -42,18 +52,32 @@ class AuthorityGrant:
     version: int = 1
 
     def __post_init__(self) -> None:
-        if not self.authority_id.strip():
+        # Public reconstruction is a trust boundary, including dataclasses.replace.
+        object.__setattr__(self, "status", AuthorityStatus(self.status))
+        if isinstance(self.scope, (str, bytes)) or not isinstance(self.scope, (set, frozenset, list, tuple)):
+            raise ValueError("scope must be a collection of action strings")
+        if any(not isinstance(x, str) or not x.strip() for x in self.scope):
+            raise ValueError("scope actions must be non-empty strings")
+        object.__setattr__(self, "scope", frozenset(self.scope))
+        if not isinstance(self.metadata, Mapping) or any(
+            not isinstance(k, str) or not isinstance(v, str) for k, v in self.metadata.items()
+        ):
+            raise ValueError("metadata must map strings to strings; nested mutable values are unsupported")
+        object.__setattr__(self, "metadata", MappingProxyType(dict(self.metadata)))
+        if not isinstance(self.authority_id, str) or not self.authority_id.strip():
             raise ValueError("authority_id must be non-empty")
-        if not self.subject.strip():
+        if not isinstance(self.subject, str) or not self.subject.strip():
             raise ValueError("subject must be non-empty")
         if not self.scope:
             raise ValueError("scope must contain at least one action")
-        if self.version < 1:
+        if type(self.version) is not int or self.version < 1:
             raise ValueError("authority version must be >= 1")
-        if self.issued_at.tzinfo is None:
+        if not isinstance(self.issued_at, datetime) or self.issued_at.tzinfo is None:
             raise ValueError("issued_at must be timezone-aware")
+        if self.state_digest is not None and not isinstance(self.state_digest, str):
+            raise ValueError("state_digest must be a string or None")
         if self.expires_at is not None:
-            if self.expires_at.tzinfo is None:
+            if not isinstance(self.expires_at, datetime) or self.expires_at.tzinfo is None:
                 raise ValueError("expires_at must be timezone-aware")
             if self.expires_at <= self.issued_at:
                 raise ValueError("expires_at must be later than issued_at")
@@ -79,6 +103,11 @@ class QueuedAuthorityReference:
     queued_status: AuthorityStatus
     queued_scope: FrozenSet[str]
     queued_state_digest: Optional[str] = None
+    queued_subject: Optional[str] = None
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "queued_scope", frozenset(self.queued_scope))
+        object.__setattr__(self, "queued_status", AuthorityStatus(self.queued_status))
 
 
 @dataclass(frozen=True)
@@ -122,8 +151,12 @@ class AuthorityRegistry:
 
     def __init__(self) -> None:
         self._current: dict[str, AuthorityGrant] = {}
+        self._lock = RLock()
 
+    @_locked
     def register(self, grant: AuthorityGrant) -> AuthorityGrant:
+        if not isinstance(grant, AuthorityGrant):
+            raise ValueError("registry requires AuthorityGrant")
         existing = self._current.get(grant.authority_id)
         if existing is not None:
             if grant == existing:
@@ -133,9 +166,11 @@ class AuthorityRegistry:
         self._current[grant.authority_id] = grant
         return grant
 
+    @_locked
     def resolve(self, authority_id: str) -> Optional[AuthorityGrant]:
         return self._current.get(authority_id)
 
+    @_locked
     def renew(
         self,
         authority_id: str,
@@ -154,18 +189,21 @@ class AuthorityRegistry:
         self._current[authority_id] = updated
         return updated
 
+    @_locked
     def limit(self, authority_id: str, scope: Iterable[str]) -> AuthorityGrant:
         current = self._require_current(authority_id)
         updated = limit_authority(current, scope)
         self._current[authority_id] = updated
         return updated
 
+    @_locked
     def revoke(self, authority_id: str) -> AuthorityGrant:
         current = self._require_current(authority_id)
         updated = revoke_authority(current)
         self._current[authority_id] = updated
         return updated
 
+    @_locked
     def invalidate(self, authority_id: str) -> AuthorityGrant:
         current = self._require_current(authority_id)
         updated = invalidate_authority(current)
@@ -299,6 +337,8 @@ def validate_authority(
     if current_time.tzinfo is None:
         raise ValueError("now must be timezone-aware")
 
+    if not isinstance(grant, AuthorityGrant) or not isinstance(grant.status, AuthorityStatus):
+        return AuthorityValidation(False, "authority_invalid_state")
     if grant.status is AuthorityStatus.REVOKED:
         return AuthorityValidation(False, "authority_revoked")
     if grant.status is AuthorityStatus.INVALIDATED:
@@ -345,6 +385,7 @@ def queue_authority_reference(grant: AuthorityGrant) -> QueuedAuthorityReference
         queued_status=grant.status,
         queued_scope=grant.scope,
         queued_state_digest=grant.state_digest,
+        queued_subject=grant.subject,
     )
 
 
@@ -362,6 +403,8 @@ def resolve_current_authority(
             reference=reference,
             current_grant=None,
         )
+    if reference.queued_subject is None or current.subject != reference.queued_subject:
+        return CurrentAuthorityResolution(False, "authority_subject_mismatch", reference, current)
     if current.version < reference.queued_version:
         return CurrentAuthorityResolution(
             resolved=False,

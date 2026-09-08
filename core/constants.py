@@ -15,7 +15,7 @@ from typing import Any, Dict
 # METADATA
 # ============================================================================
 
-ROSETTA_VERSION = "2.0.0"
+ROSETTA_VERSION = "2.1.0"
 ROSETTA_CREATED = "2025-10-12T00:00:00Z"
 ROSETTA_AUTHOR  = "Sarasha Elion (Trivian Institute)"
 ROSETTA_LICENSE = "PolyForm-Noncommercial-1.0.0 | Commercial: connect@trivianinstitute.org"
