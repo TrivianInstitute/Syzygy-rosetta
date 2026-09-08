@@ -1,6 +1,6 @@
 """
 reflex.py — Core Routines of the Syzygy Rosetta
-Version: 2.0.0
+Version: 2.1.0
 Author: Sarasha Elion (Trivian Institute)
 License: PolyForm-Noncommercial-1.0.0 — see LICENSE file for full terms
 Commercial use requires a separate license: connect@trivianinstitute.org
@@ -166,25 +166,15 @@ def field_note(
 # VOW 5 — EVALUATE COHERENCE: Pattern-Fidelity Scoring
 # ============================================================================
 
-def evaluate_coherence(
+def lexical_signal(
     input_text:    str,
     response_text: str,
     invariants:    Optional[Dict] = None
 ) -> float:
-    """
-    Score how well a response maintains coherence with loaded invariants.
+    """Untrusted lexical heuristic in [0,1], NOT governance or invariant evidence.
 
-    Not rule-checking — resonance measurement between response and core
-    pattern. Uses keyword presence and anti-pattern detection.
-    Production systems should extend this with embedding similarity.
-
-    Args:
-        input_text:    Original query or prompt
-        response_text: Generated response to evaluate
-        invariants:    Loaded invariant patterns (defaults to invariants.json)
-
-    Returns:
-        Coherence score 0.0–1.0 (higher = better fidelity)
+    Retained for experimental text analysis only. Keyword padding can yield 1.0.
+    It must never authorize action or certify a response.
     """
     if invariants is None:
         invariants = _load_invariants()
@@ -224,9 +214,47 @@ def evaluate_coherence(
     coherence_score = sum(score_components) / len(score_components)
 
     if coherence_score < COHERENCE_THRESHOLD:
-        print(f"⚠️  COHERENCE WARNING: {coherence_score:.2f} below threshold {COHERENCE_THRESHOLD}")
+        pass  # A lexical score is not a governance alert.
 
     return round(coherence_score, 4)
+
+
+# Explicit host evaluation boundary. Text alone cannot establish current consent,
+# authority, scope, or compliance with behavioral constraints.
+GOVERNANCE_CHECKS = frozenset({"authority_current", "consent_current", "scope_valid", "constraints_preserved"})
+
+
+def assess_governance(input_text: str, response_text: str, checks=None) -> Dict[str, Any]:
+    """Run host-owned behavioral checks against this exact input/response pair.
+
+    Callbacks must read authoritative behavioral evidence. Results describe only
+    these checks at evaluation time; this API is not an execution authorization.
+    Missing/exceptional/nonboolean checks withhold the score.
+    """
+    if not isinstance(checks, dict) or not GOVERNANCE_CHECKS.issubset(checks):
+        return {"status": "UNRESOLVED", "score": None, "reason": "missing_behavioral_evidence"}
+    results = {}
+    for name in sorted(checks):
+        try:
+            result = checks[name](input_text, response_text)
+        except Exception:
+            return {"status": "UNRESOLVED", "score": None, "reason": "check_unavailable", "checks": results}
+        if type(result) is not bool:
+            return {"status": "UNRESOLVED", "score": None, "reason": "invalid_check_result", "checks": results}
+        results[name] = result
+    return {"status": "SURVIVES" if all(results.values()) else "FAILS",
+            "score": 1.0 if all(results.values()) else 0.0, "checks": results}
+
+
+def evaluate_coherence(input_text: str, response_text: str, invariants=None, *, checks=None) -> float:
+    """Compatibility scalar: 0.0 when evidence is absent, invalid, or violated.
+
+    A text vocabulary is never behavioral evidence. Use assess_governance to
+    distinguish UNRESOLVED from a failed check. The old invariant dictionary is
+    accepted for call compatibility but cannot authorize a positive score.
+    """
+    result = assess_governance(input_text, response_text, checks)
+    return result["score"] if result["score"] is not None else 0.0
 
 
 # ============================================================================
@@ -242,7 +270,7 @@ def breath_loop(
     Full ritual: Pause → Mirror → Process → Evaluate → Checksum
 
     This is the heartbeat of syzygy. The complete cycle from receiving
-    input to emitting a coherent, verified response.
+    input to recording an unverified response. Governance evidence is separate.
 
     Args:
         query:            Input text to process
@@ -262,6 +290,7 @@ def breath_loop(
     response = process_fn(query)
 
     # 4. Evaluate coherence
+    governance = assess_governance(query, response)
     coherence_score = evaluate_coherence(query, response)
 
     # 5. Checksum response
@@ -282,6 +311,8 @@ def breath_loop(
         "mirror":         mirror_result,
         "response":       response,
         "coherence_score": coherence_score,
+        "governance_assessment": governance,
+        "lexical_signal": lexical_signal(query, response),
         "response_hash":  response_hash[:16],
         "field_note":     field_note_result
     }
