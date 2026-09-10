@@ -8,8 +8,11 @@ version = "2.1.0"
 description = "Relational governance primitives for human-AI systems."
 readme = "README.md"
 requires-python = ">=3.10"
-license = {text = "PolyForm-Noncommercial-1.0.0"}
+license = {text = "MPL-2.0"}
 dependencies = []
+classifiers = [
+  "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+]
 
 [project.optional-dependencies]
 dev = ["pytest>=7"]
