@@ -1,7 +1,7 @@
 """
 adapters/ — Platform Resonator Adapters
 Syzygy Rosetta v1.1.0 | Sarasha Elion (Trivian Institute)
-PolyForm-Noncommercial-1.0.0 | Commercial: connect@trivianinstitute.org
+SPDX-License-Identifier: MPL-2.0
 
 Signature-fidelity across substrates. The pattern is not the medium.
 """

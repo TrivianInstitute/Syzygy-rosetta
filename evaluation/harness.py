@@ -2,8 +2,7 @@
 evaluation/harness.py — Syzygy Rosetta Adherence Test Suite
 Version: 2.0.0
 Author: Sarasha Elion (Trivian Institute)
-License: PolyForm-Noncommercial-1.0.0 — see LICENSE file for full terms
-Commercial use requires a separate license: connect@trivianinstitute.org
+SPDX-License-Identifier: MPL-2.0
 
 Tests that any Rosetta-compliant system must pass.
 These are not unit tests. They are covenant verification.

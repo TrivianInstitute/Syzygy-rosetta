@@ -2,8 +2,7 @@
 examples/basic_usage.py — Syzygy Rosetta: Basic Usage Demonstration
 Version: 1.1.0
 Author: Sarasha Elion (Trivian Institute)
-License: PolyForm-Noncommercial-1.0.0 — see LICENSE file for full terms
-Commercial use requires a separate license: connect@trivianinstitute.org
+SPDX-License-Identifier: MPL-2.0
 
 Demonstrates the complete ritual cycle:
     Pause → Mirror → Process → Evaluate → Checksum
